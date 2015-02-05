@@ -1,6 +1,6 @@
 # Dockerfile for statsd
 #
-# VERSION               0.1
+# VERSION               0.2
 # DOCKER-VERSION        0.4.0
 
 from    ubuntu:12.10
@@ -12,7 +12,7 @@ run     tar -C /usr/local/ --strip-components=1 -zxvf /tmp/node-v0.11.0.tar.gz
 run     rm /tmp/node-v0.11.0.tar.gz
 run     git clone git://github.com/etsy/statsd.git statsd
 
-add     ./config.js ./statsd/config.js
+add     ./etc/config.js ./statsd/config.js
 
 expose  8125/udp
 expose  8126/tcp
