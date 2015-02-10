@@ -7,10 +7,8 @@ A simple statsd docker implementation based off @antonlindstrom's statsd contain
 
 The following ports are exposed by the image.
 
-| Port | Protocol | Description                        |
-|------|----------|------------------------------------|
-| 8125 | UDP      | The default port statsd listens on |
-| 8126 | TCP      |   [statsd admin interface](https://github.com/etsy/statsd/blob/master/docs/admin_interface.md)|
+- 8125 (UDP) The default port statsd listens on |
+- 8126 (TCP) [statsd admin interface](https://github.com/etsy/statsd/blob/master/docs/admin_interface.md)|
 
 
 Statsd listens on 8125 by default, to use it outside you'll need to expose it
@@ -20,16 +18,14 @@ to the outside world.
 
 The following enviromental varaible are supported by this image.
 
-| Env                       | Default  |
-|---------------------------|----------|
-| GRAPHITE_PORT             | 2003     |
-| GRAPHITE_HOST             | localhost|
-| GRAPHITE_GLOBAL_PREFIX    | stats    | 
-| GRAPHITE_LEGACY_NAMESPACE | true     | 
-| STATSD_PORT               | 8125     |
-| STATSD_DUMP_MSG           | false    |
-| STATSD_DEBUG              | false    |
-| STATSD_FLUSH_INTERVAL     | 10000    |
+- GRAPHITE_PORT             (default: 2003)
+- GRAPHITE_HOST             (default: localhost)
+- GRAPHITE_GLOBAL_PREFIX    (default: stats) 
+- GRAPHITE_LEGACY_NAMESPACE (default: true) 
+- STATSD_PORT               (default: 8125)
+- STATSD_DUMP_MSG           (default: false)
+- STATSD_DEBUG              (default: false)
+- STATSD_FLUSH_INTERVAL     (default: 10000)
 
 ## Running the container
 
