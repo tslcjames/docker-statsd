@@ -3,17 +3,13 @@
 # VERSION               0.2
 # DOCKER-VERSION        0.4.0
 
-from    ubuntu:14.10
-run     apt-get -y update
-run     apt-get -y install wget git python
-run     wget -O /tmp/node-v0.11.0.tar.gz http://nodejs.org/dist/v0.11.0/node-v0.11.0-linux-x64.tar.gz 
-run     tar -C /usr/local/ --strip-components=1 -zxvf /tmp/node-v0.11.0.tar.gz
-run     rm /tmp/node-v0.11.0.tar.gz
-run     git clone git://github.com/etsy/statsd.git statsd
+FROM dockerfile/nodejs
 
-add     ./etc/config.js ./statsd/config.js
+RUN git clone git://github.com/etsy/statsd.git /usr/local/src/statsd
 
-expose  8125/udp
-expose  8126/tcp
+ADD ./etc/config.js ./etc/default/statsd.js
 
-cmd     /usr/local/bin/node /statsd/stats.js /statsd/config.js
+EXPOSE 8125/udp
+EXPOSE 8126/tcp
+
+CMD node /usr/local/src/statsd/stats.js /etc/default/statsd.js

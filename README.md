@@ -12,9 +12,11 @@ Example to run the docker instance:
 
 Environment variables that can be used to set options:
 
-    GRAPHITE_PORT (default: 2003)
-    GRAPHITE_HOST (default: localhost)
-    STATSD_PORT   (default: 8125)
+    GRAPHITE_PORT   (default: 2003)
+    GRAPHITE_HOST   (default: localhost)
+    STATSD_PORT     (default: 8125)
+    STATSD_DUMP_MSG (default: false)
+    STATSD_DEBUG    (default: false)
 
 This image is available in the docker registry at jaconel/statsd:
 
@@ -28,7 +30,9 @@ can be accessed through `8126/tcp`.
 This repository is setup to automatically build on Docker Hub when new commits are pushed. 
 
 If you wish to build this repository manually, the following command(s) can be used:
-    sudo docker build -t statsd . 
+
+```sudo docker build -t statsd . ```
 
 To push the image to docker hub:
-    sudo docker push jaconel/statsd
+
+```sudo docker push jaconel/statsd```
