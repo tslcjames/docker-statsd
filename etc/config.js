@@ -103,10 +103,16 @@ Optional Variables:
 */
 (function() {
     return {
-        graphitePort: parseInt(process.env.GRAPHITE_PORT) || 2003,
-        graphiteHost: process.env.GRAPHITE_HOST || "localhost",
-        port: parseInt(process.env.STATSD_PORT) || 8125,
-        dumpMessages: process.env.STATSD_DUMP_MSG == "true" || false,
-        debug: process.env.STATSD_DEBUG == "true" || false
+        graphitePort: parseInt(process.env.GRAPHITE_PORT),
+        graphiteHost: process.env.GRAPHITE_HOST,
+        port: parseInt(process.env.STATSD_PORT),
+        dumpMessages: process.env.STATSD_DUMP_MSG == "true",
+        debug: process.env.STATSD_DEBUG == "true",
+        flushInterval: parseInt(process.env.STATSD_FLUSH_INTERVAL),
+
+        graphite: {
+            globalPrefix: process.env.GRAPHITE_GLOBAL_PREFIX,
+            legacyNamespace: process.env.GRAPHITE_LEGACY_NAMESPACE == 'true'
+        }
     };
 })()
