@@ -18,14 +18,14 @@ to the outside world.
 
 The following enviromental varaible are supported by this image.
 
-- **GRAPHITE_PORT**             (default: 2003)
-- **GRAPHITE_HOST**             (default: localhost)
-- **GRAPHITE_GLOBAL_PREFIX**    (default: stats) 
-- **GRAPHITE_LEGACY_NAMESPACE** (default: true) 
-- **STATSD_PORT**               (default: 8125)
-- **STATSD_DUMP_MSG**           (default: false)
-- **STATSD_DEBUG**              (default: false)
-- **STATSD_FLUSH_INTERVAL**     (default: 10000)
+- **GRAPHITE_PORT_2003_TCP_PORT** (default: 2003)
+- **GRAPHITE_PORT_2003_TCP_ADD**  (default: localhost)
+- **GRAPHITE_GLOBAL_PREFIX**      (default: stats) 
+- **GRAPHITE_LEGACY_NAMESPACE**   (default: true) 
+- **STATSD_PORT**                 (default: 8125)
+- **STATSD_DUMP_MSG**             (default: false)
+- **STATSD_DEBUG**                (default: false)
+- **STATSD_FLUSH_INTERVAL**       (default: 10000)
 
 ## Running the container
 
