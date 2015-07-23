@@ -1,6 +1,6 @@
 # Dockerfile for statsd
 
-FROM dockerfile/nodejs
+FROM nodejs
 
 RUN git clone git://github.com/etsy/statsd.git /usr/local/src/statsd
 
