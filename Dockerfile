@@ -1,6 +1,6 @@
 # Dockerfile for statsd
 
-FROM axisk\nodejs
+FROM axisk/nodejs
 
 RUN git clone git://github.com/etsy/statsd.git /usr/local/src/statsd
 
