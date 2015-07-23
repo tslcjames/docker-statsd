@@ -6,8 +6,6 @@ RUN git clone git://github.com/etsy/statsd.git /usr/local/src/statsd
 
 ADD ./etc/config.js ./etc/default/statsd.js
 
-ENV GRAPHITE_PORT 2003
-ENV GRAPHITE_HOST localhost
 ENV GRAPHITE_GLOBAL_PREFIX stats
 ENV GRAPHITE_LEGACY_NAMESPACE true
 
