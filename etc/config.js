@@ -1,28 +1,42 @@
 /*
-Graphite Required Variables:
+Graphite Required Variable:
 
-(Leave these unset to avoid sending stats to Graphite.
- Set debug flag and leave these unset to run in 'dry' debug mode -
+(Leave this unset to avoid sending stats to Graphite.
+ Set debug flag and leave this unset to run in 'dry' debug mode -
  useful for testing statsd clients without a Graphite server.)
 
   graphiteHost:     hostname or IP of Graphite server
-  graphitePort:     port of Graphite server
 
 Optional Variables:
 
+  graphitePort:     port for the graphite text collector [default: 2003]
+  graphitePicklePort: port for the graphite pickle collector [default: 2004]
+  graphiteProtocol: either 'text' or 'pickle' [default: 'text']
   backends:         an array of backends to load. Each backend must exist
                     by name in the directory backends/. If not specified,
-                    the default graphite backend will be loaded. 
+                    the default graphite backend will be loaded.
                     * example for console and graphite:
                     [ "./backends/console", "./backends/graphite" ]
-  server:           the server to load. The server must exist by name in the directory
+
+  servers:          an array of server configurations.
+                    If not specified, the server, address,
+                    address_ipv6, and port top-level configuration
+                    options are used to configure a single server for
+                    backwards-compatibility
+                    Each server configuration supports the following keys:
+    server:         the server to load. The server must exist by name in the directory
                     servers/. If not specified, the default udp server will be loaded.
                     * example for tcp server:
                     "./servers/tcp"
+    address:        address to listen on [default: 0.0.0.0]
+    address_ipv6:   defines if the address is an IPv4 or IPv6 address [true or false, default: false]
+    port:           port to listen for messages on [default: 8125]
+    socket:         (only for tcp servers) path to unix domain socket which will be used to receive
+                    metrics [default: undefinded]
+    socket_mod:     (only for tcp servers) file mode which should be applied to unix domain socket, relevant
+                    only if socket option is used [default: undefined]
+
   debug:            debug flag [default: false]
-  address:          address to listen on [default: 0.0.0.0]
-  address_ipv6:     defines if the address is an IPv4 or IPv6 address [true or false, default: false]
-  port:             port to listen for messages on [default: 8125]
   mgmt_address:     address to run the management TCP interface on
                     [default: 0.0.0.0]
   mgmt_port:        port to run the management TCP interface on [default: 8126]
@@ -53,6 +67,9 @@ Optional Variables:
   deleteCounters:   don't send values to graphite for inactive counters, as opposed to sending 0 [default: false]
   prefixStats:      prefix to use for the statsd statistics data for this running instance of statsd [default: statsd]
                     applies to both legacy and new namespacing
+  keyNameSanitize:  sanitize all stat names on ingress [default: true]
+                    If disabled, it is up to the backends to sanitize keynames
+                    as appropriate per their storage requirements.
 
   console:
     prettyprint:    whether to prettyprint the console backend
@@ -80,8 +97,8 @@ Optional Variables:
                     e.g. [ { host: '10.10.10.10', port: 8125 },
                            { host: 'observer', port: 88125 } ]
 
-  repeaterProtocol: whether to use udp4 or udp6 for repeaters.
-                    ["udp4" or "udp6", default: "udp4"]
+  repeaterProtocol: whether to use udp4, udp6, or tcp for repeaters.
+                    ["udp4," "udp6", or "tcp" default: "udp4"]
 
   histogram:        for timers, an array of mappings of strings (to match metrics) and
                     corresponding ordered non-inclusive upper limits of bins.
@@ -101,18 +118,11 @@ Optional Variables:
   automaticConfigReload: whether to watch the config file and reload it when it
                          changes. The default is true. Set this to false to disable.
 */
-(function() {
-    return {
-        graphitePort: parseInt(process.env.GRAPHITE_PORT_2003_TCP_PORT),
-        graphiteHost: process.env.GRAPHITE_PORT_2003_TCP_ADDR,
-        port: parseInt(process.env.STATSD_PORT),
-        dumpMessages: process.env.STATSD_DUMP_MSG == "true",
-        debug: process.env.STATSD_DEBUG == "true",
-        flushInterval: parseInt(process.env.STATSD_FLUSH_INTERVAL),
-
-        graphite: {
-            globalPrefix: process.env.GRAPHITE_GLOBAL_PREFIX,
-            legacyNamespace: process.env.GRAPHITE_LEGACY_NAMESPACE == 'true'
-        }
-    };
-})()
+{
+  graphitePort: parseInt(process.env.GRAPHITE_PORT_2003_TCP_PORT),
+  graphiteHost: process.env.GRAPHITE_PORT_2003_TCP_ADDR,
+  port: parseInt(process.env.STATSD_PORT),
+  dumpMessages: process.env.STATSD_DUMP_MSG == "true",
+  debug: process.env.STATSD_DEBUG == "true",
+  flushInterval: parseInt(process.env.STATSD_FLUSH_INTERVAL)
+}
