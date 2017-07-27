@@ -124,6 +124,5 @@ Optional Variables:
   port: parseInt(process.env.STATSD_PORT),
   dumpMessages: process.env.STATSD_DUMP_MSG == "true",
   debug: process.env.STATSD_DEBUG == "true",
-  flushInterval: parseInt(process.env.STATSD_FLUSH_INTERVAL),
-  backends: [ "./backends/graphite" ]
+  flushInterval: parseInt(process.env.STATSD_FLUSH_INTERVAL)
 }
